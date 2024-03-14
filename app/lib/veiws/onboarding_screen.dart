@@ -10,6 +10,12 @@ class Onboarding_screen extends StatefulWidget {
 class _Onboarding_screenState extends State<Onboarding_screen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          
+        ],
+      ),
+    );
   }
 }
