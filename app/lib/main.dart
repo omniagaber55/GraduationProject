@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: PrimaryColor),
         useMaterial3: true,
       ),
-      home: Onboarding_screen(),
+      home: OnboardingPage(),
     );
   }
 }
