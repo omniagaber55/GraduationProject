@@ -1,6 +1,7 @@
 
 import 'package:app/Models/onboarding_data.dart';
 import 'package:app/constants.dart';
+import 'package:app/veiws/logIn.dart';
 
 import 'package:flutter/material.dart';
 
@@ -122,12 +123,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
           );
         });
           } else {
-    /*    Navigator.push(
+        Navigator.push(
   context,
   MaterialPageRoute(
     builder: (context) => LogIn_Screen(),
   ),
-);*/
+);
           }
         },
           child: Text(
