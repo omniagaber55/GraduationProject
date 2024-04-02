@@ -1,6 +1,7 @@
 import 'package:app/constants.dart';
 
 import 'package:app/veiws/onboarding_screen.dart';
+import 'package:app/veiws/who_are_you.dart';
 
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: PrimaryColor),
         useMaterial3: true,
       ),
-      home: OnboardingPage(),
+      home: WhoAreYou(),
     );
   }
 }
