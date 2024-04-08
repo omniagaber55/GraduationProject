@@ -2,7 +2,6 @@ import 'package:app/Components/custom_button.dart';
 import 'package:app/Components/custom_email.dart';
 import 'package:app/Components/custom_password.dart';
 import 'package:app/constants.dart';
-
 import 'package:flutter/material.dart';
 
 class Update_email extends StatefulWidget {
