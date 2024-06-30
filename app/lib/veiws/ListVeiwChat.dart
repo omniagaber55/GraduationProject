@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:app/constants.dart';
-import 'package:app/veiws/chatPage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'chatPage.dart';
 
 class LIstViewChat extends StatefulWidget {
   const LIstViewChat({super.key});
@@ -10,17 +14,7 @@ class LIstViewChat extends StatefulWidget {
 }
 
 class _LIstViewChatState extends State<LIstViewChat> {
-  List<User> _users = [
-    User(id: 1, name: 'Dina', email: 'كيف الحال'),
-    User(id: 2, name: 'Dalia', email: 'صباح الخير'),
-    User(id: 3, name: 'Rahma', email:"notallow"),
-    User(id: 4, name: 'Heba', email: 'not allow '),
-    User(id: 5, name: 'Rokya', email: 'meeting'),
-    User(id: 6, name: 'Omnia', email: 'meeting'),
-    User(id: 7, name: 'Basmlla', email: 'meeting'),
-     User(id: 7, name: 'Rofid', email: 'meeting'),
-  ];
-
+  List<User> _users = [];
   List<User> _searchResults = [];
 
   final TextEditingController _searchController = TextEditingController();
@@ -28,7 +22,35 @@ class _LIstViewChatState extends State<LIstViewChat> {
   @override
   void initState() {
     super.initState();
-    _searchResults = _users; // initialize search results with all users
+    _fetchChats();
+  }
+
+  Future<void> _fetchChats() async {
+    final token = 'your_bearer_token_here';
+    final response = await http.get(
+      Uri.parse('https://your_api_endpoint_here/api/show-chats'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+      },
+    );
+
+    print('Response status code: ${response.statusCode}');
+
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      final chats = jsonData['chats'];
+      setState(() {
+        _users = chats.map((chat) => User(
+          id: chat['id'],
+          name: chat['sender_name'],
+          email: chat['receiver_name'],
+        )).toList();
+        _searchResults = _users;
+      });
+    } else {
+      throw Exception('Failed to load chats');
+    }
   }
 
   @override
@@ -41,7 +63,7 @@ class _LIstViewChatState extends State<LIstViewChat> {
         title: const SizedBox(
           child: Text(
             "Chat",
-            style: TextStyle(color:PrimaryColor, fontSize: 32),
+            style: TextStyle(color: PrimaryColor, fontSize: 32),
           ),
         ),
         centerTitle: true,
@@ -95,11 +117,14 @@ class _LIstViewChatState extends State<LIstViewChat> {
                 return Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: InkWell(
-                    onTap: () {  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  chatpage(_searchResults[index])),
-  );
-},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => chatpage(_searchResults[index]),
+                        ),
+                      );
+                    },
                     child: ListTile(
                       leading: Container(
                         decoration: const BoxDecoration(
@@ -134,8 +159,7 @@ class _LIstViewChatState extends State<LIstViewChat> {
     setState(() {
       _searchResults = _users
           .where((user) =>
-              user.name.toLowerCase().contains(query.toLowerCase())
-          )
+          user.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
