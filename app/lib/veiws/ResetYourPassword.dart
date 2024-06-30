@@ -16,7 +16,7 @@ class Reset_Password extends StatefulWidget {
 
 class _Reset_PasswordState extends State<Reset_Password> {
   final String apiUrl =
-      'https://jsonplaceholder.typicode.com/posts'; // API endpoint for posting password reset data
+      '{{url}}/doctor/api/doctor/reset-password?email=heba444@gmail.com'; // API endpoint for posting password reset data
 
   final TextEditingController confirmpasswordController =
       TextEditingController(); // Controller for confirm password field

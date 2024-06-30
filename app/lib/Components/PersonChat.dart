@@ -28,7 +28,7 @@ class PersonChat extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w400,
             color: PrimaryColor,

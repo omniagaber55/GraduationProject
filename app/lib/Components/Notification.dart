@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+
 import 'package:http/http.dart' as http;
 
 class Notifications extends StatefulWidget {
@@ -26,7 +26,7 @@ class _NotificationsState extends State<Notifications> {
 
   Future<void> _loadImageFromPath() async {
     // Replace this with your local image path
-    String imagePath = 'assets/images/card.jpeg';
+    String imagePath = 'assets/images/Group 14 (1).png';
 
     setState(() {
       _imageFile = File(imagePath);
@@ -36,32 +36,31 @@ class _NotificationsState extends State<Notifications> {
   }
 
   Future<void> _sendImageToServer(File imageFile) async {
-    final url = Uri.parse(
-        'https://miserably-current-lioness.ngrok-free.app/classify?image='); // Replace with your API endpoint
-    var request = http.MultipartRequest('POST', url);
-    request.files
-        .add(await http.MultipartFile.fromPath('image', imageFile.path));
+  final url = Uri.parse('https://miserably-current-lioness.ngrok-free.app/classify');
+  var request = http.MultipartRequest('POST', url);
+  request.files.add(await http.MultipartFile.fromPath('image', imageFile.path));
 
-    try {
-      final response = await request.send();
-      if (response.statusCode == 200) {
-        // Process successful response
-        final responseBody = await response.stream.bytesToString();
-        final decoded = jsonDecode(responseBody);
-        setState(() {
-          _predictionMessage = '  There is a foreign body that harm the device';
-        });
-      } else {
-        setState(() {
-          _predictionMessage = null; // Remove _predictionMessage on failure
-        });
-      }
-    } catch (e) {
+  try {
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
       setState(() {
-        _predictionMessage = null; // Remove _predictionMessage on error
+        _predictionMessage = decoded['result']; // Adjust key according to API response structure
+      });
+    } else {
+      setState(() {
+        _predictionMessage = null; // Remove _predictionMessage on failure
       });
     }
+  } catch (e) {
+    setState(() {
+      _predictionMessage = null; // Remove _predictionMessage on error
+    });
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +163,7 @@ class _NotificationsState extends State<Notifications> {
             if (_predictionMessage != null) // Display _predictionMessage if not null
               NotificationElement(
                 image1: "assets/icons/icon2.png",
-                text: _predictionMessage!,
+                text:  'Warning: we found $_predictionMessage',
                 clock: "02:20 pm",
               ),
             const SizedBox(

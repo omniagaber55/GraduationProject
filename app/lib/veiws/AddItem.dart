@@ -34,7 +34,7 @@ class _AddItemState extends State<AddItem> {
     };
 
     var request = http.MultipartRequest(
-        'POST', Uri.parse('https://3b3a-197-43-150-8.ngrok-free.app/api/add-item'));
+        'POST', Uri.parse('https://9a32-197-43-150-8.ngrok-free.app/api/add-device'));
     request.headers.addAll(headers);
     request.fields.addAll({
       'price': price.toString(),

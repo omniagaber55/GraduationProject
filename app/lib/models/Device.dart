@@ -1,26 +1,22 @@
 class DeviceModel {
-  final dynamic id;
   final String name;
   final String location;
-  final dynamic price;
-  final dynamic amount;
+  final double price;
+  final int amount;
 
-
-DeviceModel({
-    required this.id,
+  DeviceModel({
     required this.name,
     required this.location,
     required this.price,
     required this.amount,
   });
 
-  factory DeviceModel.fromJson(jsonData) {
+  factory DeviceModel.fromJson(Map<String, dynamic> json) {
     return DeviceModel(
-      id: jsonData['id'],
-      name: jsonData['category'],
-     location: jsonData['category'],
-      price: jsonData['price'],
-      amount: jsonData['price'],
+      name: json['name'],
+      location: json['location'],
+      price: json['price'].toDouble(),
+      amount: json['amount'],
     );
   }
 }
