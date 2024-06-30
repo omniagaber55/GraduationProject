@@ -2,6 +2,7 @@ import 'package:app/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pinput/pinput.dart';
+import 'package:flutter/material.dart'; // add this import
 
 class OTP extends StatefulWidget {
   const OTP({super.key});
@@ -12,6 +13,9 @@ class OTP extends StatefulWidget {
 
 class _OTPState extends State<OTP> {
   final pinController = TextEditingController();
+
+
+  
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
 
@@ -48,18 +52,41 @@ class _OTPState extends State<OTP> {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Form(
-          child: Pinput(
-        length: 5,
-        defaultPinTheme: defaultPinTheme,
-        focusedPinTheme: focusedPinTheme,
-        submittedPinTheme: submittedPinTheme,
-        validator: (s) {
-          return s == '22222' ? null : 'Pin is incorrect';
-        },
-        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-        showCursor: true,
-        onCompleted: (pin) => print(pin),
-      )),
+        key: formKey, // add this
+        child: Pinput(
+          length: 5,
+          defaultPinTheme: defaultPinTheme,
+          focusedPinTheme: focusedPinTheme,
+          submittedPinTheme: submittedPinTheme,
+          validator: (s) {
+            if (s == '22222') return null;
+            return 'Pin is incorrect';
+          },
+          pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+          showCursor: true,
+          onCompleted: (pin) async {
+            if (formKey.currentState!.validate()) {
+              // PIN is correct, do something
+              print(pin);
+            } else {
+              // PIN is incorrect, show alert dialog
+              await showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                 
+                  content: Text('OTP is not correct try again'),
+                  actions: [
+                    TextButton(
+                      child: Text('OK'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }

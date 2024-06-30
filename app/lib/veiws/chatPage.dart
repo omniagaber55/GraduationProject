@@ -1,12 +1,14 @@
 import 'package:app/constants.dart';
+import 'package:app/veiws/ListVeiwChat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 
 class chatpage extends StatefulWidget {
-  const chatpage({super.key});
-
+  final User _user;
+    chatpage( this._user);
+              
   @override
   State<chatpage> createState() => _chatpageState();
 }
@@ -18,9 +20,40 @@ class _chatpageState extends State<chatpage> {
   );
 
   @override
+    void initState() {
+    super.initState();
+    _addMessage(types.TextMessage(
+      author: _user,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: UniqueKey().toString(),
+      text: widget._user.email,
+    ));
+  }
+@override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body:Chat(
+appBar: AppBar(title:  Row(
+  children: [
+    Container(
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.cyan),
+                            child: const Padding(
+                              padding: EdgeInsets.all(.5), // stroke
+                              child: CircleAvatar(
+                                radius: 23,
+                                backgroundColor: Colors.white,
+                                child: Image(
+                                  image: AssetImage('assets/images/Chat.png'),
+                                ),
+                                // resize radius
+                              ),
+                            ),
+                          ), SizedBox(width: 20,),
+Text(widget._user.name)  ],
+),),
+      body:
+      Chat(
         messages: _messages,
         onSendPressed: _handleSendPressed,
         showUserAvatars: true,

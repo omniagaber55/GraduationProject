@@ -58,7 +58,9 @@ class _ForyouDeviceState extends State<ForyouDevice> {
           )
         ],
       ),
-      body: SafeArea(
+      body:
+
+      SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [

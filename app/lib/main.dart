@@ -1,6 +1,10 @@
 
 import 'package:app/Components/Notification.dart';
+import 'package:app/veiws/Home.dart';
+import 'package:app/veiws/ListVeiwChat.dart';
+import 'package:app/veiws/OTPpage.dart';
 import 'package:app/veiws/SplashScreens.dart';
+import 'package:app/veiws/chatPage.dart';
 
 
 
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
     
-      home:SplashScreen()
+      home:Otp_page()
     );
   }
 }

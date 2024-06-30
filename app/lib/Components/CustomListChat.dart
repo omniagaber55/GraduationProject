@@ -36,9 +36,9 @@ class _ListChatState extends State<ListChat> {
                   color: PrimaryColor,
                 ),
                 hintStyle: const TextStyle(
-                  color: PrimaryColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w300
+                    color: PrimaryColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w300
                 ),
                 enabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
