@@ -5,7 +5,6 @@ class ProductModel {
   final dynamic price;
   final dynamic amount;
 
-
   ProductModel({
     required this.id,
     required this.name,
@@ -14,13 +13,14 @@ class ProductModel {
     required this.amount,
   });
 
-  factory ProductModel.fromJson(jsonData) {
+  factory ProductModel.fromJson(Map<String, dynamic> jsonData) {
     return ProductModel(
       id: jsonData['id'],
-      name: jsonData['category'],
-     location: jsonData['category'],
+      name: jsonData['name'],
+      location: jsonData['location'],
       price: jsonData['price'],
-      amount: jsonData['price'],
+      amount: jsonData['amount'],
     );
   }
 }
+

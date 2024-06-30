@@ -18,14 +18,14 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Future<void> logoutUser() async {
-    var url = Uri.parse('https://your-backend-api.com/logout');  // Replace with your logout endpoint
+    var url = Uri.parse('https://4d36-197-43-81-117.ngrok-free.app/api/logout');  
 
     try {
       var response = await http.post(
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer your_access_token',  // Replace with your actual bearer token
+          'Authorization': 'Bearer your_access_token', 
         },
       );
 

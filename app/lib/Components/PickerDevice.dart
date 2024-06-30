@@ -82,8 +82,8 @@ class _PickerDeviceState extends State<PickerDevice> {
                           widget.onDeviceSelected(_deviceConsumption);
                         });
                       },
-                      textStyle: TextStyle(
-                        color: const Color.fromARGB(50, 0, 137, 149),
+                      textStyle: const TextStyle(
+                        color: Color.fromARGB(50, 0, 137, 149),
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),

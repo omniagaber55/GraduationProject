@@ -56,17 +56,16 @@ class _LIstViewChatState extends State<LIstViewChat> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                     Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    chatpage(), // Navigate to chatPage
-                  ),
-                );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              chatpage(), // Navigate to chatPage
+                        ),
+                      );
                     },
                     child: Column(
                       children: [
-                        // Replace with actual chat person details
                         PersonChat(
                           name: "Dina Ali Saleh",
                           image: "assets/images/Chat.png",

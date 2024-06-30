@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+
 class ForyouDevice extends StatefulWidget {
   const ForyouDevice({Key? key}) : super(key: key);
 
@@ -17,13 +18,12 @@ class ForyouDevice extends StatefulWidget {
 }
 
 class _ForyouDeviceState extends State<ForyouDevice> {
-  bool ispressed = false;
   late Future<List<DeviceModel>> _productsFuture;
 
   @override
   void initState() {
     super.initState();
-    _productsFuture = AllProductsService().getAllProducts();
+    _productsFuture = AllDeviceService().getAllProducts();
   }
 
   @override
@@ -43,17 +43,16 @@ class _ForyouDeviceState extends State<ForyouDevice> {
         actions: [
           IconButton(
             onPressed: () {
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          EditDeviceAdd(), // Navigate to SignUpAsBuyer for Buyer
-                      ),
-                    );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditDeviceAdd(),
+                ),
+              );
             },
             icon: const Icon(
               Icons.edit_square,
-              color: White,
+              color: Colors.white,
             ),
           )
         ],
@@ -82,7 +81,7 @@ class _ForyouDeviceState extends State<ForyouDevice> {
                         Text(
                           "For You",
                           style: TextStyle(
-                            color: White,
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 24,
                           ),
@@ -101,7 +100,7 @@ class _ForyouDeviceState extends State<ForyouDevice> {
                               width: 250,
                               height: 100,
                               decoration: const BoxDecoration(
-                                color: White,
+                                color: Colors.white,
                                 borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(500),
                                   topLeft: Radius.circular(500),
@@ -181,27 +180,26 @@ class _ForyouDeviceState extends State<ForyouDevice> {
                     final products = snapshot.data!;
 
                     return GridView.builder(
-  shrinkWrap: true,
-  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-  ),
-  itemCount: products.length,
-  itemBuilder: (context, index) {
-    final product = products[index];
-    bool isFourthOrFifth = index == 3 || index == 4;
-    bool usePrimaryColor = isFourthOrFifth; // Determine if primary color should be used
+                      shrinkWrap: true,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
+                        bool isFourthOrFifth = index == 3 || index == 4;
+                        bool usePrimaryColor = isFourthOrFifth;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-      child: CustomDeviceCard(
-        product: product,
-        index: index,
-        isPrimaryColor: usePrimaryColor, // Pass the parameter to CustomDeviceCard
-      ),
-    );
-  },
-);
-
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                          child: CustomDeviceCard(
+                            product: product,
+                            index: index,
+                            isPrimaryColor: usePrimaryColor,
+                          ),
+                        );
+                      },
+                    );
                   }
                 },
               ),
@@ -217,4 +215,3 @@ class _ForyouDeviceState extends State<ForyouDevice> {
     );
   }
 }
-
