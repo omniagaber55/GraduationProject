@@ -158,7 +158,7 @@ class _EmailUpdateScreenState extends State<EmailUpdateScreen> {
                 // Button to initiate OTP sending process
                 CustomButton(onTap: _postData, label: "Send OTP"),
                 // Display result message from API call
-                Text(result),
+            
               ],
             ),
           ),

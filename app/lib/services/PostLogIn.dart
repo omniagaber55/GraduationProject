@@ -25,4 +25,6 @@ class ApiService {
       throw Exception('Failed to login ');
     }
   }
+
+  static getDevices() {}
 }

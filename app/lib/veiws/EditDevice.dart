@@ -1,14 +1,13 @@
 import 'package:app/Components/CustomButtom.dart';
 import 'package:app/Components/CustomFeild.dart';
-import 'package:app/Components/pickerDevice.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
-import '../constants.dart';
+import 'package:app/constants.dart';
+
+import 'package:app/components/PickerDevice.dart'; // Adjust import path as per your project structure
 
 class EditDeviceAdd extends StatefulWidget {
-  const EditDeviceAdd({super.key});
+  const EditDeviceAdd({Key? key}) : super(key: key);
 
   @override
   State<EditDeviceAdd> createState() => _EditDeviceAddState();
@@ -19,82 +18,91 @@ class _EditDeviceAddState extends State<EditDeviceAdd> {
   final TextEditingController brandController = TextEditingController();
   int selectedDevice = 0; // Initialize with a default value if needed
 
-  Future<void> _postData() async {
-    String name = nameController.text;
-    String brand = brandController.text;
+  var headers = {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer 33|TsM4ZeboAzmCEFgcKC0DIwNLPJhxUrydQ9b6qv5I0dd7dfae', // Replace with your actual token
+  };
 
-    // Print the data before posting
-    print('Device Name: $name');
-    print('Device Brand: $brand');
-    print('Selected Device: $selectedDevice');
+ Future<void> _postData() async {
+  String name = nameController.text.trim();
+  String brand = brandController.text.trim();
 
-    try {
-      final response = await http.post(
-        Uri.parse(
-            'https://jsonplaceholder.typicode.com/posts'), // Replace 'Your API URL here' with your actual API URL
-        body: {
-          'name': name,
-          'brand': brand,
-          'device':
-              selectedDevice.toString(), // Convert selectedDevice to a String
-        },
-      );
+  // Print the data before posting
+  print('Device Name: $name');
+  print('Device Brand: $brand');
+  print('Selected Device: $selectedDevice');
 
-      if (response.statusCode == 201) {
-        print('Device added successfully');
-      } else {
-        print('Failed to add device. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      print('Exception occurred: $e');
+  try {
+    final response = await http.post(
+      Uri.parse('https://9a32-197-43-150-8.ngrok-free.app/api/update-device?id=16'), // Replace with your actual API URL
+      headers: headers,
+      body: {
+        'device_name': name,
+        'device_brand': brand,
+        'device_consumption': selectedDevice.toString(),
+      },
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Device updated successfully');
+      // Optionally, navigate back to the previous screen or perform other actions upon successful update
+      Navigator.pop(context); // Navigate back to the previous screen
+    } else {
+      print('Failed to update device. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
     }
+  } catch (e) {
+    print('Exception occurred: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0, backgroundColor: const Color.fromARGB(235, 248, 248, 248),
-        // title: Icon(Icons.arrow_back,color:Color(0xff009589 ,)),
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(235, 248, 248, 248),
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.edit_square, color: PrimaryColor),
-              SizedBox(width: 10),
-              Text(
-                "Edit Device",
-                style: TextStyle(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.edit_square, color: PrimaryColor),
+                SizedBox(width: 10),
+                Text(
+                  "Edit Device",
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w400,
-                    color: PrimaryColor),
-              )
-            ],
-          ),
-          SizedBox(height: 20),
-          CustomFiled(
-            labelText: "Device Name",
-            controller: nameController,
-          ),
-          const SizedBox(height: 20),
-          CustomFiled(
-            labelText: "Device Brand",
-            controller: brandController,
-          ),
-          const SizedBox(height: 40),
-          PickerDevice(
-            onDeviceSelected: (selectedDevice) {
-              setState(() {
-                this.selectedDevice = selectedDevice;
-              });
-            },
-          ),
-          const SizedBox(height: 30),
-          CustomButton(onTap: _postData, label: "Done")
-        ]),
+                    color: PrimaryColor,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            CustomFiled(
+              labelText: "Device Name",
+              controller: nameController,
+            ),
+            const SizedBox(height: 20),
+              CustomFiled(
+              labelText: "Device Brand",
+              controller: brandController,
+            ),
+            const SizedBox(height: 40),
+            PickerDevice(
+              onDeviceSelected: (selectedDevice) {
+                setState(() {
+                  this.selectedDevice = selectedDevice;
+                });
+              },
+            ),
+            const SizedBox(height: 30),
+           CustomButton(onTap: _postData, label: "Done"),
+          ],
+        ),
       ),
     );
   }

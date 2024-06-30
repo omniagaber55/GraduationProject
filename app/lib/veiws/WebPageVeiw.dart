@@ -9,7 +9,7 @@ class WebViewPage extends StatelessWidget {
     return const Scaffold(
       body: WebView(
         initialUrl:
-            'https://www.bing.com/search?pglt=41&q=google+translate&cvid=1c99c8c875694d6f898d005fdeb535e4&gs_lcrp=EgZjaHJvbWUqBggCEC4YQDIGCAAQRRg5MgYIARAuGEAyBggCEC4YQDIGCAMQRRg7MgYIBBAAGEAyBggFEC4YQDIGCAYQRRg8MgYIBxBFGDwyBggIEEUYPNIBCDIzMTFqMGoxqAIIsAIB&FORM=ANNTA1&PC=SCOOBE',
+            'https://BioVoltex.com',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );
